@@ -16,3 +16,5 @@ BCS-2H
 ![image](https://github.com/user-attachments/assets/b3d62b20-8a20-4cfd-ba0e-ca0317f12f4c)
 
 ## Lab Task 05
+![image](https://github.com/user-attachments/assets/3864849c-405d-480a-abb1-3966e818ddc3)
+![image](https://github.com/user-attachments/assets/6aa05abb-e837-406d-90e7-d29f4298aae0)
