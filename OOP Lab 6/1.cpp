@@ -32,6 +32,8 @@ public:
 int main()
 {
     Manager m1("Muzammil", 29000, 5000);
+    nl;
     m1.displayDetails();
+    nl;
     return 0;
 }

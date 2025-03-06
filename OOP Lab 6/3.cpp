@@ -1,26 +1,15 @@
 #include <bits/stdc++.h>
 #define nl (cout << endl)
 using namespace std;
-// 1. Base Class: Person
-// o Data Members: name (string), age (int)
-// o Member Functions: displayDetails()
-// 2. Derived Class: Teacher
-// o Data Member: subject (string)
-// o Member Functions: displayDetails()
-// 3. Derived Class: Researcher
-// o Data Member: researchArea (string)
-// o Member Functions: displayDetails()
-// 4. Derived Class: Professor
-// o Data Member: publications (int)
-// o Member Functions: displayDetails()
 
 class Person
 {
+protected:
     string name;
     int age;
 
 public:
-    Person(string name, int age) : name(name), age(age) {}
+    Person(string name = "", int age = 0) : name(name), age(age) {}
     void displayDetails()
     {
         cout << "Name: " << name << endl;
@@ -28,12 +17,13 @@ public:
     }
 };
 
-class Teacher : public Person
+class Teacher : virtual public Person
 {
+protected:
     string subject;
 
 public:
-    Teacher(string name, int age, string subject) : Person(name, age), subject(subject) {}
+    Teacher(string name = "", int age = 0, string subject = "") : Person(name, age), subject(subject) {}
     void displayDetails()
     {
         Person::displayDetails();
@@ -41,12 +31,13 @@ public:
     }
 };
 
-class Researcher : public Person
+class Researcher : virtual public Person
 {
+protected:
     string researchArea;
 
 public:
-    Researcher(string name, int age, string researchArea) : Person(name, age), researchArea(researchArea) {}
+    Researcher(string name = "", int age = 0, string researchArea = "") : Person(name, age), researchArea(researchArea) {}
     void displayDetails()
     {
         Person::displayDetails();
@@ -56,17 +47,29 @@ public:
 
 class Professor : Teacher, Researcher
 {
+protected:
     int publications;
 
 public:
-    Professor(string name, int age, string subject, string researchArea, int publications) : publications(publications) {}
-    void displayDetails()
-    {
+    Professor(string name = "", int age = 0, string subject = "", string researchArea = "", int publications = 0) 
+        : Person(name, age), 
+          Teacher(name, age, subject), 
+          Researcher(name, age, researchArea), 
+          publications(publications) {}
+        
+    void displayDetails() {
+        Person::displayDetails();
+        cout << "Subject: " << subject << endl;
+        cout << "Research Area: " << researchArea << endl;
+        cout << "Publications: " << publications << endl;
     }
 };
 
 int main()
 {
-
+    nl;
+    Professor prof("Usama Antuley", 41, "Calculus", "Artificial Intelligence", 25);
+    prof.displayDetails();
+    nl;
     return 0;
 }

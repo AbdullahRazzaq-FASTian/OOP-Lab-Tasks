@@ -46,6 +46,8 @@ public:
 int main()
 {
     ElectricCar e1("Tesla", 200, 2, 1000);
+    nl;
     e1.displayDetails();
+    nl;
     return 0;
 }
