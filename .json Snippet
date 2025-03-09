@@ -2,8 +2,8 @@
 		"prefix": "boiler",
 		"body": [
 			"#include <bits/stdc++.h>",
-			"#define GETTER(type, var) type get##var() const { return var; }",
-			"#define SETTER(type, var) void set##var(type val) { var = val; }",
+			"#define GETTER(type, var) type get_##var() const { return var; }",
+			"#define SETTER(type, var) void set_##var(type val) { var = val; }",
 			"#define nl (cout << endl)",
 			"using namespace std;",
 			"int main()",
