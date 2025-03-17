@@ -2,8 +2,6 @@
 		"prefix": "boiler",
 		"body": [
 			"#include <bits/stdc++.h>",
-			"#define GETTER(type, var) type get_##var() const { return var; }",
-			"#define SETTER(type, var) void set_##var(type val) { this->var = val; }",
 			"#define nl (cout << endl)",
 			"using namespace std;",
 			"int main()",
@@ -13,7 +11,27 @@
 			"}"
 		],
 		"description": "Print a default code"
-	}
+	},
+	"Cpp Getter": {
+		"prefix": "getter",
+		"body": [
+			"${1:int} get${2:Value}() const",
+			"{",
+			"    return ${3:variable};",
+			"}"
+		],
+		"description": "Print a default getter"
+	},
+	"Cpp Setter": {
+		"prefix": "setter",
+		"body": [
+			"void set${1:Value}(${2:int} ${3:variable})",
+			"{",
+			"    this->${3} = ${3};",
+			"}"
+		],
+		"description": "Print a default setter"
+	}	
 
 template <typename T>
 T* reallocate(T* arr, size_t oldSize, size_t newSize) {
