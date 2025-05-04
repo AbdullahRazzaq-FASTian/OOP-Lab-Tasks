@@ -30,9 +30,9 @@
 	"Cpp Getter": {
 		"prefix": "getter",
 		"body": [
-			"${1:int} get${2:Value}() const",
+			"${1:int} get_${2:Variable}() const",
 			"{",
-			"    return ${3:variable};",
+			"    return ${2:variable};",
 			"}"
 		],
 		"description": "Print a default getter"
@@ -40,12 +40,91 @@
 	"Cpp Setter": {
 		"prefix": "setter",
 		"body": [
-			"void set${1:Value}(${2:int} ${3:variable})",
+			"void set_${2:Variable}(${1:int} ${2:variable})",
 			"{",
-			"    this->${3} = ${3};",
+			"    this->${2} = ${2};",
 			"}"
 		],
 		"description": "Print a default setter"
+	},
+	"FileHandler Class with Templates": {
+		"prefix": "filehandler",
+		"body": [
+			"class FileHandler",
+			"{",
+			"public:",
+			"    template <typename T>",
+			"    void writeObject(const char *filename, T &obj)",
+			"    {",
+			"        ofstream file(filename, ios::binary | ios::app);",
+			"        if (file.is_open())",
+			"        {",
+			"            file.write((char *)&obj, sizeof(T));",
+			"            file.close();",
+			"        }",
+			"    }",
+			"",
+			"    template <typename T>",
+			"    void readObject(const char *filename, T &tempObj)",
+			"    {",
+			"        ifstream file(filename, ios::binary);",
+			"        if (file.is_open())",
+			"        {",
+			"            while (file.read((char *)&tempObj, sizeof(T)))",
+			"            {",
+			"                tempObj.display();",
+			"            }",
+			"            file.close();",
+			"        }",
+			"    }",
+			"",
+			"    template <typename T>",
+			"    void readSpecificObject(const char *filename, T &obj, int index)",
+			"    {",
+			"        ifstream file(filename, ios::binary);",
+			"        if (file.is_open())",
+			"        {",
+			"            file.seekg(index * sizeof(T), ios::beg);",
+			"            file.read(reinterpret_cast<char *>(&obj), sizeof(T));",
+			"            file.close();",
+			"        }",
+			"    }",
+			"",
+			"    template <typename T>",
+			"    void updateSpecificObject(const char *filename, T &newObj, int index)",
+			"    {",
+			"        fstream file(filename, ios::binary | ios::in | ios::out);",
+			"        if (file.is_open())",
+			"        {",
+			"            file.seekp(index * sizeof(T), ios::beg);",
+			"            file.write(reinterpret_cast<char *>(&newObj), sizeof(T));",
+			"            file.close();",
+			"        }",
+			"    }",
+			"",
+			"    template <typename T>",
+			"    bool deleteSpecificObject(const char *filename, int index)",
+			"    {",
+			"        T blankObj;",
+			"        updateSpecificObject(filename, blankObj, index);",
+			"        return true;",
+			"    }",
+			"",
+			"    template <typename T>",
+			"    int countRecords(const char *filename)",
+			"    {",
+			"        ifstream file(filename, ios::binary | ios::ate);",
+			"        if (file.is_open())",
+			"        {",
+			"            int size = file.tellg();",
+			"            file.close();",
+			"            return size / sizeof(T);",
+			"        }",
+			"        return 0;",
+			"    }",
+			"};"
+		],
+		"description": "Reusable FileHandler class for binary object operations"
 	},
 	"Cpp CP": {
 		"prefix": "cp",
@@ -122,12 +201,11 @@
 		],
 		"description": "Boilerplate code for C++ in VS Code with extended utilities"
 	}
-}	
-
-template <typename T>
-T* reallocate(T* arr, size_t oldSize, size_t newSize) {
-    T* temp = new T[newSize];  // Allocate new memory
-    std::copy(arr, arr + std::min(oldSize, newSize), temp);  // Copy elements
-    delete[] arr;  // Free old memory
-    return temp;  // Return new pointer
 }
+// template <typename T>
+// T* reallocate(T* arr, size_t oldSize, size_t newSize) {
+//     T* temp = new T[newSize];  // Allocate new memory
+//     std::copy(arr, arr + std::min(oldSize, newSize), temp);  // Copy elements
+//     delete[] arr;  // Free old memory
+//     return temp;  // Return new pointer
+// }
